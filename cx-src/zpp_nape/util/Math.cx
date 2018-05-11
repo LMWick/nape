@@ -11,7 +11,7 @@ $(mixin global isNaN(x) (x!=x));
 class PR(Math) {
     flibstaticdel(sqrt) public static inline function sqrt(x:Float) {
         assert(!assert_isNaN(x),"PR(Math).sqrt");
-        #if flash10
+         #if (flash10 && !consistent_physics)
             return if(x==0.0) 0.0 else 1/invsqrt(x);
         #else
             return Math.sqrt(x);
@@ -19,7 +19,7 @@ class PR(Math) {
     }
     flibstaticdel(invsqrt) public static inline function invsqrt(x:Float) {
         assert(!assert_isNaN(x) && x!=0.0,"PR(Math).invsqrt");
-        #if flash10
+         #if (flash10 && !consistent_physics)
             Memory.setFloat(0,x);
             Memory.setI32(0,0x5f3759df - (Memory.getI32(0)>>1));
             var x2 = Memory.getFloat(0);
